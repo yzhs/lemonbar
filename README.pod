@@ -6,11 +6,12 @@ lemonbar - Featherweight lemon-scented bar
 
 =head1 SYNOPSIS
 
-I<lemonbar> [-h | -g I<width>B<x>I<height>B<+>I<x>B<+>I<y> | -b | -d | -f I<font> | -p | -u I<pixel> | -B I<color> | -F I<color> | -o I<offset>]
+I<lemonbar> [-h | -g I<width>B<x>I<height>B<+>I<x>B<+>I<y> | -b | -d | -f I<font> | -p | -u I<pixel> | -B I<color> | -F I<color> | -o I<offset>] MONITOR
 
 =head1 DESCRIPTION
 
-B<lemonbar> (formerly known as B<bar>) is a lightweight bar entirely based on XCB. Provides full UTF-8 support, basic formatting, RandR and Xinerama support and EWMH compliance without wasting your precious memory.
+B<lemonbar> (formerly known as B<bar>) is a lightweight bar entirely based on XCB. Provides full UTF-8 support, basic formatting, RandR support and EWMH compliance without wasting your precious memory.
+Monitor name can be determined using e.g. I<xrandr -q>
 
 =head1 OPTIONS
 
@@ -22,7 +23,7 @@ Display the help and exit.
 
 =item B<-g> I<width>B<x>I<height>B<+>I<x>B<+>I<y>
 
-Set the window geometry. If a parameter is omitted it's filled with the default value. If the I<y> parameter is specified along with the B<-b> switch then the position is relative to the bottom of the screen.
+Set the window geometry. If a parameter is omitted it's filled with the default value. If the I<y> parameter is specified along with the B<-b> switch then the position is relative to the bottom of the screen. The offsets are always relative to the selected monitor's upper left corner.
 
 =item B<-b>
 
