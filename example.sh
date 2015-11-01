@@ -3,7 +3,7 @@
 # Run it as:
 # example.sh | lemonbar -fMonospace:size=10 -fFontAwesome:size=12 eDP1 | zsh
 #
-# Requires: nm-applet, alsautils, font awesome
+# Requires: nm-applet, alsautils, mailcheck, font awesome
 
 PAD="  "
 BAT_BIAS=2 # My battery often decides to stop charging at what is reported as 98%
@@ -51,7 +51,20 @@ Backlight() {
 Weather() {
     URL='http://www.accuweather.com/en/cz/brno/123291/weather-forecast/123291'
     WEATHER=$(wget -q -O- "$URL" | awk -F\' '/acm_RecentLocationsCarousel\.push/{print  $14", "$12"°" }'| head -1)
-    echo -e '%{T2}\uf185%{T1}' $WEATHER
+    case $WEATHER in
+        Foggy*) echo -ne '%{T2}\uf070%{T1}';;
+        Sunny* | Clear*) echo -ne '%{T2}\uf185%{T1}';;
+        *) echo -ne '%{T2}\uf0e7%{T1}';;
+    esac
+    echo -n " $WEATHER"
+}
+
+Mail() {
+    MAIL=$(mailcheck -c)
+    if [ "$MAIL" != "" ]; then
+        MAILS=$(echo $MAIL | cut -d " " -f 3)
+        echo -ne "%{T2}\uf0e0%{T1} $MAILS new messages"
+    fi
 }
 
 
@@ -60,8 +73,9 @@ while true; do
     if [ $((c % 10)) -eq 0 ]; then clock="$(Clock)"; fi
     if [ $((c % 15)) -eq 0 ]; then wifi="$(Wifi)"; fi
     if [ $((c % 60)) -eq 0 ]; then battery="$(Battery)"; fi
+    if [ $((c % 60)) -eq 0 ]; then mail="$(Mail)"; fi
     if [ $((c % 900)) -eq 0 ]; then weather="$(Weather)"; fi
-    echo -n "%{l}"$PAD" $clock "$PAD" $weather %{r}$(Sound) "$PAD" $wifi "$PAD" $battery "$PAD""
+    echo -n "%{l}"$PAD" $clock "$PAD" $weather %{r}$mail "$PAD" $(Sound) "$PAD" $wifi "$PAD" $battery "$PAD""
     echo -e "%{A2:poweroff:}%{A3:reboot:} "$PAD" %{T2}\uf011%{T1} "$PAD" %{A}%{A}"
     c=$((c+1));
     sleep 1;
