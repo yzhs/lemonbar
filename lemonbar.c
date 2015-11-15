@@ -48,7 +48,7 @@ typedef struct area_t {
     unsigned int end:16;
     bool active:1;
     int align:3;
-    int button:3;
+    int button;
     xcb_window_t window;
     char *cmd;
 } area_t;
@@ -744,7 +744,8 @@ font_load (const char *pattern)
         ret->height = ret->ascent + ret->descent;
     } else {
         fprintf(stderr, "Could not load font %s\n", pattern);
-        return NULL;
+        free(ret);
+        return;
     }
 
     font_list[font_count++] = ret;
