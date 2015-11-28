@@ -118,26 +118,6 @@ Nested clickable areas can trigger different commands.
 
 Eg. I<%{A:reboot:}%{A3:halt:} Left click to reboot, right click to shutdown %{A}%{A}>
 
-=item B<S>I<dir>
-
-Change the monitor the bar is rendered to. I<dir> can be either
-
-=over
-
-=item B<+>/B<->
-
-Next/previous monitor.
-
-=item B<f>/B<l>
-
-First/last monitor.
-
-=item I<0-9>
-
-Nth monitor.
-
-=back
-
 =back
 
 B<Attribute modifiers>
