@@ -36,7 +36,7 @@ Force docking without asking the window manager. This is needed if the window ma
 =item B<-f> I<font>
 
 Define the font to load into one of the five slots (the number of slots is hardcoded and can be tweaked by
-changing the MAX_FONT_COUNT parameter in the source code).
+changing the MAX_FONT_COUNT parameter in the source code). This version supports fontconfig font specifiers and anti-aliased fonts.
 
 =item B<-a> I<number>
 
@@ -108,7 +108,7 @@ Set the text underline color. The parameter I<color> can be I<-> or a color in o
 
 =item B<A>I<button>:I<command>:
 
-Create a clickable area starting from the current position, when the area is clicked I<command> is executed. The area is closed when a B<A> token, not followed by : is encountered.
+Create a clickable area starting from the current position, when the area is clicked I<command> is printed on stdout. The area is closed when a B<A> token, not followed by : is encountered.
 
 Eg. I<%{A:reboot:} Click here to reboot %{A}>
 
