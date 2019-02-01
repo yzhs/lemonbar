@@ -136,38 +136,6 @@ void update_gc(void)
 	}
 }
 
-void fill_gradient(xcb_drawable_t d, int x, int y, int width, int height,
-		   rgba_t start, rgba_t stop)
-{
-	float i;
-	const int K = 25; // The number of steps
-
-	for (i = 0.; i < 1.; i += (1. / K)) {
-		// Perform the linear interpolation magic
-		unsigned int rr = i * stop.r + (1. - i) * start.r;
-		unsigned int gg = i * stop.g + (1. - i) * start.g;
-		unsigned int bb = i * stop.b + (1. - i) * start.b;
-
-		// The alpha is ignored here
-		rgba_t step = {
-			.r = rr,
-			.g = gg,
-			.b = bb,
-			.a = 255,
-		};
-
-		xcb_change_gc(c, gc[GC_DRAW], XCB_GC_FOREGROUND,
-			      (const uint32_t[]){ step.v });
-		xcb_poly_fill_rectangle(
-			c, d, gc[GC_DRAW], 1,
-			(const xcb_rectangle_t[]){
-				{ x, i * bh, width, bh / K + 1 } });
-	}
-
-	xcb_change_gc(c, gc[GC_DRAW], XCB_GC_FOREGROUND,
-		      (const uint32_t[]){ fgc.v });
-}
-
 void fill_rect(xcb_drawable_t d, xcb_gcontext_t _gc, int x, int y, int width,
 	       int height)
 {
