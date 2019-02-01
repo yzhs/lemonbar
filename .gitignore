@@ -1,4 +1,1 @@
-lemonbar
-*.o
-*.swp
-*~
+build/
