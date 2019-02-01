@@ -335,6 +335,7 @@ rgba_t parse_color(const char *str, char **end, const rgba_t def)
 		// Expand the #rgb format into #rrggbb (aa is set to 0xff)
 		tmp.v = (tmp.v & 0xf00) * 0x1100 | (tmp.v & 0x0f0) * 0x0110 |
 			(tmp.v & 0x00f) * 0x0011;
+		__attribute__((fallthrough));
 	case 6:
 		// If the code is in #rrggbb form then assume it's opaque
 		tmp.a = 255;
